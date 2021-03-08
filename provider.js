@@ -34,6 +34,8 @@ const provider = new Provider(config.issuer, {
 });
 const router = new Router()
 
+// allow X-Forwarded-Proto and X-Forwarded-For to be set
+provider.proxy = true
 
 router.get('/interaction/:grant', async (ctx, next) => {
     ctx.body = `
