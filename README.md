@@ -1,6 +1,6 @@
 # Anonymous OpenID Connect Provider
 
-allows logging to a service via OpenID Connect with only providing an username
+Allows logging in to a service via OpenID Connect by only providing an username.
 
 ## usage with synapse
 
