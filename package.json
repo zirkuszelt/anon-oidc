@@ -6,8 +6,8 @@
     "@koa/router": "^10.0.0",
     "koa": "^2.13.1",
     "koa-bodyparser": "^4.3.0",
-    "koa-views": "^7.0.1",
+    "koa-twig": "^1.1.2",
     "oidc-provider": "^6.31.0",
-    "swig": "^1.4.2"
+    "twig": "^1.15.4"
   }
 }

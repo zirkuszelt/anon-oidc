@@ -1,15 +1,14 @@
-const path = require('path');
 const router = require('@koa/router')()
 const bodyParser = require('koa-bodyparser')
-const views = require('koa-views');
+const koaTwig = require('koa-twig');
 const config = require('../config')
 const providerGenerator = require('./provider')
 
 const profileNames = {}
 const provider = providerGenerator(profileNames)
 
-const render = views(path.join(__dirname, '/views'), {
-  map: { html: 'swig' }
+const render = koaTwig({
+  views: `${__dirname}/views`,
 })
 
 // route definitions
