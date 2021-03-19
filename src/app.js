@@ -14,6 +14,7 @@ const render = koaTwig({
 // route definitions
 router.get('/interaction/:grant', add)
 router.post('/interaction/:grant', create)
+router.get('/health', health)
 
 async function add(ctx) {
   await ctx.render('new', { grant: ctx.params.grant });
@@ -36,6 +37,9 @@ async function create(ctx) {
     { mergeWithLastSubmission: true },
   )
 }
+async function health(ctx) {
+  ctx.body = { success: true }
+}
 
 provider.use(render);
 provider.use(bodyParser())
@@ -43,6 +47,6 @@ provider.use(router.routes())
 
 const server = provider.listen(config.listenPort, '0.0.0.0', () => {
   console.log(
-    'oidc-provider listening on port 1234, check http://127.0.0.1:1234/.well-known/openid-configuration',
+    `oidc-provider listening on port ${config.listenPort}, check http://127.0.0.1:${config.listenPort}/.well-known/openid-configuration`,
   )
 })
