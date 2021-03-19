@@ -3,8 +3,8 @@
 allows logging to a service via OpenID Connect with only providing an username
 
 ## usage with synapse
-```yml
 
+```yml
 oidc_providers:
   - idp_id: my_idp
     idp_name: "My OpenID provider"
