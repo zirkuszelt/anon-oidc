@@ -20,6 +20,9 @@ module.exports = () => {
       devInteractions: {
         enabled: false,
       },
+      backchannelLogout: {
+        enabled: true,
+      },
     },
 
     clients: [
