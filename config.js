@@ -1,12 +1,11 @@
 module.exports = {
-  issuer: 'https://anon-oidc.example.com/',
-  listenPort: 1234,
-  clientId: 'foo',
-  clientSecret: 'bar',
+  issuer: process.env.HOSTNAME,
+  listenPort: 8080,
+  clientId: process.env.BROKER_CLIENT_ID,
+  clientSecret: process.env.BROKER_CLIENT_SECRET,
   redirectUris: [
-    'https://matrix.example.com/_synapse/oidc/callback',
-    'https://matrix.example.com/_synapse/client/oidc/callback',
+    process.env.BROKER_REDIRECT_URI
   ],
 
-  generateId: (profileName) => 'anonym_' + Math.random().toString(16).slice(2),
+  generateId: (profileName) => 'guest_' + Math.random().toString(16).slice(2),
 }
