@@ -1,45 +1,55 @@
 const router = require('@koa/router')()
 const bodyParser = require('koa-bodyparser')
 const koaTwig = require('koa-twig');
+
 const config = require('../config')
 const providerGenerator = require('./provider')
 
-const profileNames = {}
-const provider = providerGenerator(profileNames)
+const provider = providerGenerator()
 
 const render = koaTwig({
   views: `${__dirname}/views`,
 })
 
-// route definitions
-router.get('/interaction/:grant', add)
-router.post('/interaction/:grant', create)
-router.get('/health', health)
+router.get('/interaction/:grant', async (ctx) => {
+  await ctx.render('new', { grant: ctx.params.grant, recaptchaSiteKey: config.recaptcha.siteKey })
+})
 
-async function add(ctx) {
-  await ctx.render('new', { grant: ctx.params.grant });
-}
+router.post('/interaction/:grant', async (ctx) => {
+  try {
+    const response_key = ctx.request.body["g-recaptcha-response"]
+    const url = `https://www.google.com/recaptcha/api/siteverify?secret=${config.recaptcha.secretKey}&response=${response_key}`
 
-async function create(ctx) {
-  const profileName = ctx.request.body.username
-  const id = config.generateId(profileName)
-  profileNames[id] = profileName
-  await provider.interactionFinished(
-    ctx.req,
-    ctx.res,
-    {
-      login: {
-        account: id,
-        remember: false,
+    const res = await fetch(url, { method: "post" })
+    const captchaResponse = await res.json();
+    if (!captchaResponse.success) {
+      ctx.status = 403
+      ctx.body = "Captcha failed"
+      return
+    }
+
+    const id = config.generateId()
+    await provider.interactionFinished(
+      ctx.req,
+      ctx.res,
+      {
+        login: {
+          account: id,
+          remember: false,
+        },
+        consent: {},
       },
-      consent: {},
-    },
-    { mergeWithLastSubmission: true },
-  )
-}
-async function health(ctx) {
-  ctx.body = { success: true }
-}
+      { mergeWithLastSubmission: true },
+    )
+  } catch (e) {
+    console.error(e);
+    throw e;
+  }
+})
+
+router.get('/health', (ctx) => {
+  ctx.body = { success: true}
+})
 
 provider.use(render);
 provider.use(bodyParser())

@@ -1,7 +1,7 @@
 const { Provider } = require('oidc-provider')
 const config = require('../config')
 
-module.exports = (profileNames) => {
+module.exports = () => {
   const provider = new Provider(config.issuer, {
     async findAccount(ctx, id) {
       return {
@@ -9,13 +9,12 @@ module.exports = (profileNames) => {
         async claims(use, scope) {
           return {
             sub: id,
-            name: profileNames[id],
           }
         },
       }
     },
     claims: {
-      openid: ['sub', 'name'],
+      openid: ['sub'],
     },
     features: {
       devInteractions: {

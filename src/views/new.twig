@@ -1,28 +1,13 @@
-{% extends 'layout.twig' %}
-
-{% block title %}Zirkuszelt Username{% endblock %}
-
-{% block content %}
-<div class="modal">
-  <div class="modal--blur"></div>
-
-  <div class="modal--content">
-    <div class="modal--header">
-      <img class="modal--logo" src="https://dev.zirkuszelt.org/themes/zirkuszelt/img/logos/zirkuszelt.svg" alt="Zirkuszelt">
-    </div>
-
-    <div class="modal--body">
-      <form method="post" action="/interaction/{{ grant }}">
-        <label>
-          <p>
-            Mit welchen Namen möchtest du dich anmelden?<br>
-            <small>What nickname would you like to choose?</small>
-          </p>
-          <input type="text" name="username" placeholder="Name..." required />
-        </label>
-        <input type="submit" value="Weiter">
-      </form>
-    </div>
-  </div>
-</div>
-{% endblock %}
+<html>
+  <head>
+    <title>Guest Access</title>
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+  </head>
+  <body>
+    <form method="POST">
+      <div class="g-recaptcha" data-sitekey="{{ recaptchaSiteKey }}"></div>
+      <br/>
+      <input type="submit" value="Submit">
+    </form>
+  </body>
+</html>
