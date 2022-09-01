@@ -2,7 +2,7 @@ const router = require('@koa/router')()
 const bodyParser = require('koa-bodyparser')
 const koaTwig = require('koa-twig');
 
-const config = require('../config')
+const config = require('./config')
 const providerGenerator = require('./provider')
 
 const provider = providerGenerator()

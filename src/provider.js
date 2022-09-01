@@ -1,5 +1,5 @@
 const { Provider } = require('oidc-provider')
-const config = require('../config')
+const config = require('./config')
 
 module.exports = () => {
   const provider = new Provider(config.issuer, {
