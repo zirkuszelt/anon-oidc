@@ -1,3 +1,5 @@
+const { generateRandomName } = require("./generateRandomName");
+
 module.exports = {
   issuer: process.env.ISSUER,
   listenPort: process.env.PORT ? parseInt(process.env.PORT) : 8080,
@@ -10,5 +12,5 @@ module.exports = {
     siteKey: process.env.RECAPTCHA_SITE_KEY || "6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI",
     secretKey: process.env.RECAPTCHA_SECRET_KEY || "6LeIxAcTAAAAAGG-vFI1TnRWxMZNFuojJ4WifJWe",
   },
-  generateId: () => 'guest_' + Math.random().toString(16).slice(2),
+  generateId: () => generateRandomName(),
 }

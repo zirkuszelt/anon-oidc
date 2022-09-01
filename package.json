@@ -9,6 +9,7 @@
     "koa-bodyparser": "^4.3.0",
     "koa-twig": "^1.1.2",
     "oidc-provider": "^6.31.0",
-    "twig": "^1.15.4"
+    "twig": "^1.15.4",
+    "unique-names-generator": "^4.7.1"
   }
 }
