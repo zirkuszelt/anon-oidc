@@ -16,6 +16,19 @@ router.get('/interaction/:grant', async (ctx) => {
 })
 
 router.post('/interaction/:grant', async (ctx) => {
+  if (ctx.request.body.cancelled) {
+    await provider.interactionFinished(
+      ctx.req,
+      ctx.res,
+      {
+        error: 'access_denied',
+        error_description: 'The user denied the request',
+      },
+      { mergeWithLastSubmission: true },
+    )
+    return
+  }
+
   try {
     const response_key = ctx.request.body["g-recaptcha-response"]
     const url = `https://www.google.com/recaptcha/api/siteverify?secret=${config.recaptcha.secretKey}&response=${response_key}`
