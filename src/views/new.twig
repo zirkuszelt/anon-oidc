@@ -154,6 +154,7 @@
 body {
     padding: var(--sp-md);
     font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif !important;
+    background-color: var(--bg-surface-low);
     color: var(--tc-surface);
 }
 
@@ -186,7 +187,26 @@ body form {
     border: none;
     border-radius: var(--br-md);
     background-color: var(--bg-surface);
-    text-align: center;
+}
+
+.text-h2 {
+    font-weight: var(--fw-bold);
+    font-size: var(--fs-h2);
+    letter-spacing: var(--ls-h2);
+    line-height: var(--lh-h2);
+}
+
+.text-b2 {
+    font-size: var(--fs-b2);
+    letter-spacing: var(--ls-b2);
+    line-height: var(--lh-b2);
+}
+
+.heading {
+    margin: 0 0 var(--sp-lg)
+}
+.continue-alert {
+    margin: 0 0 var(--sp-md);
 }
 
 input {
@@ -223,16 +243,13 @@ input[type="submit"] {
 .btn-default:not(:first-child) {
     margin: 0 var(--sp-xs);
 }
-
-.g-recaptcha > div {
-  margin: auto;
-}
     </style>
   </head>
   <body>
     <form method="POST">
-      <p>Continuing will create a guest user that is stored as a cookie for the duration of your browser session.</p>
+      <h2 class="text-h2">Confirm Captcha</h2>
       <div class="g-recaptcha" data-sitekey="{{ recaptchaSiteKey }}"></div>
+      <p class="text-b2 continue-alert">Continuing will create a guest user that is stored as a cookie for the duration of your browser session.</p>
       <br/>
       <input type="submit" name="approved" value="Continue" class="btn-primary">
       <input type="submit" name="cancelled" value="Cancel" class="btn-default">
